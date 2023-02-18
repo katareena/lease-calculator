@@ -4,7 +4,7 @@ import './lease-form.scss';
 const LeaseForm = () => {
   return (
     <section className="lease">
-      <h2 className='visually-hidden'>Калькулятор расчета стоимости автомобиля в лизинг</h2>
+      <h2>Рассчитайте стоимость автомобиля в лизинг</h2>
 
       <form className="lease__form">
         <div className='field aria-1'></div>

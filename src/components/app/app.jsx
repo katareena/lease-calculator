@@ -5,7 +5,7 @@ import LeaseForm from "../lease-form/lease-form";
 function App() {
   return (
     <main className="main">
-      <h1>Рассчитайте стоимость автомобиля в лизинг</h1>
+      <h1 className='visually-hidden'>Калькулятор расчета стоимости автомобиля в лизинг</h1>
       <LeaseForm />
     </main>
   );

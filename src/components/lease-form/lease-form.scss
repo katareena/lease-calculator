@@ -1,5 +1,9 @@
 @use '../../global-styles/variables' as v;
 
+.lease {
+  width: 100%;
+}
+
 .lease__form {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
