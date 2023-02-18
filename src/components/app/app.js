@@ -5,8 +5,6 @@ function App() {
     <section className="lease">
       <h2></h2>
 
-
-
     </section>
   );
 }
