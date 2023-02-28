@@ -45,37 +45,240 @@
   }
 }
 
+.lease__title {
+  font-weight: 900;
+  font-size: 54px;
+  line-height: 90%;
+  color: v.$black;
+  margin-bottom: 32px;
+  max-width: 753px;
+
+  @media screen and (max-width: v.$mobileWidth) {
+    font-size: 34px;
+    line-height: 90%;
+  }
+}
+
 .field {
-  height: 100px;  
-  border: solid 1px black;
+  display: flex;
+  flex-direction: column; 
+  position: relative;
+}
+
+.field__label {
+  font-family: 'Gilroy', 'Tahoma', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: v.$gray-1;
+  margin-bottom: 24px;
+}
+
+.field__input {
+  width: 100%;
+  height: 68px;
+  background-color: v.$gray-3;
+  border-radius: 16px;
+  border: 2px solid v.$gray-3;
+  border-radius: 16px;
+  padding: 16px 84px 16px 24px;
+
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 36px;
+  color: v.$gray-1;
+
+  &:focus,
+  &:active {
+    background-color: v.$white;
+  }
+
+  @media screen and (max-width: v.$mobileWidth) {
+    height: 60px;
+    padding: 20px 55px 20px 20px;
+    font-size: 22px;
+    line-height: 20px;
+  }
 }
 
 .aria-1 {
   grid-area: aria-1;
-  background-color: plum;
+  // background-color: plum;
 }
 
 .aria-2 {
   grid-area: aria-2;
-  background-color: plum;
+  // background-color: plum;
 }
 
 .aria-3 {
   grid-area: aria-3;
-  background-color: plum;
+  // background-color: plum;
 }
 
 .aria-4 {
   grid-area: aria-4;
-  background-color: yellowgreen;
+  // background-color: yellowgreen;
 }
 
 .aria-5 {
   grid-area: aria-5;
-  background-color: yellowgreen;
+  // background-color: yellowgreen;
 }
 
 .aria-6 {
   grid-area: aria-6;
-  background-color: orange;
+  // background-color: orange;
 }
+
+.field__range {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: 0;
+  height: 2px;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: -2px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  background: v.$gray-2;
+  background-image: linear-gradient(v.$accent1, v.$accent1);
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: v.$accent1;
+    border: none;
+    border-radius: 50%;
+    transition: v.$transition;
+  }
+
+  &::-moz-range-thumb {
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: v.$accent1;
+    border: none;
+    border-radius: 50%;
+    transition: v.$transition;
+  }
+}
+
+.field:hover .field__range,
+.field__input:active + .field__range {
+  height: 1px;
+  margin-top: -1px;
+}
+
+.field:hover .field__range {
+  &::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  &::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.field__marck {  
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  padding: 0 16px;
+  
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 120%;
+
+  position: absolute;
+  bottom: 7px;
+  right: 7px;
+  cursor: default;
+
+  &.field__marck--changeable {  
+    width: 69px;  
+    background-color: v.$gray-4;
+    border-radius: 16px;
+    font-size: 20px;
+    overflow: hidden;
+
+    @media screen and (max-width: v.$mobileWidth) {
+      width: 67px;
+    }
+  }
+
+  @media screen and (max-width: v.$mobileWidth) {    
+    height: 48px;
+    bottom: 6px;
+    right: 6px;
+
+    font-size: 22px;
+    line-height: 20px;
+  }
+}
+
+.field__value {
+  font-weight: 900;
+  font-size: 54px;
+  line-height: 90%;
+  color: v.$gray-5;
+  display: flex;
+
+  & span {
+    margin-left: 12px;
+    margin-top: -6px;   
+  }
+
+  @media screen and (max-width: v.$mobileWidth) {
+    font-size: 22px;
+    line-height: 20px;
+  }
+}
+
+.lease__submit {
+  width: 100%;
+  height: 68px;
+  margin-top: 25px;
+  background-color: v.$accent1;
+  border-radius: 40px;
+
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 120%;
+
+  color: v.$white;
+
+  &:hover {
+    background-color: v.$black;
+  }
+
+  &:active {
+    background-color: v.$gray-1;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+
+    &:hover {
+      background-color: v.$accent1;
+    }
+
+    &:active {
+      background-color: v.$accent1;
+    }
+  }
+}
+
+// .field {
+//   opacity: 0.25;
+// }

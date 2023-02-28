@@ -11,11 +11,11 @@
   align-items: center;
 
   @media screen and (max-width: v.$tabletWidth) {
-    padding: 0 36px;
+    padding: 64px 36px;
     align-items: flex-start;
   }
 
   @media screen and (max-width: v.$mobileWidth) {
-    padding: 0 20px;
+    padding: 44px 20px;
   }
 }
