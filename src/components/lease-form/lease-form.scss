@@ -31,7 +31,7 @@
 
   @media screen and (max-width: v.$mobileWidth) {
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: 1fr 1fr 1fr 65px 65px 65px;
     grid-column-gap: 0px;
     grid-row-gap: 16px;
     grid-template-areas:
@@ -56,6 +56,7 @@
   @media screen and (max-width: v.$mobileWidth) {
     font-size: 34px;
     line-height: 90%;
+    max-width: 450px;
   }
 }
 
@@ -72,6 +73,10 @@
   line-height: 20px;
   color: v.$gray-1;
   margin-bottom: 24px;
+
+  @media screen and (max-width: v.$mobileWidth) {
+    margin-bottom: 8px;
+  }
 }
 
 .field__input {
@@ -88,47 +93,37 @@
   line-height: 36px;
   color: v.$gray-1;
 
-  &:focus,
-  &:active {
-    background-color: v.$white;
-  }
-
   @media screen and (max-width: v.$mobileWidth) {
     height: 60px;
     padding: 20px 55px 20px 20px;
     font-size: 22px;
     line-height: 20px;
+    color: v.$gray-6;
   }
 }
 
 .aria-1 {
   grid-area: aria-1;
-  // background-color: plum;
 }
 
 .aria-2 {
   grid-area: aria-2;
-  // background-color: plum;
 }
 
 .aria-3 {
   grid-area: aria-3;
-  // background-color: plum;
 }
 
 .aria-4 {
   grid-area: aria-4;
-  // background-color: yellowgreen;
 }
 
 .aria-5 {
   grid-area: aria-5;
-  // background-color: yellowgreen;
 }
 
 .aria-6 {
   grid-area: aria-6;
-  // background-color: orange;
 }
 
 .field__range {
@@ -145,7 +140,6 @@
   background-image: linear-gradient(v.$accent1, v.$accent1);
   background-size: 50% 100%;
   background-repeat: no-repeat;
-  cursor: pointer;
   position: relative;
   z-index: 2;
 
@@ -167,24 +161,6 @@
     border: none;
     border-radius: 50%;
     transition: v.$transition;
-  }
-}
-
-.field:hover .field__range,
-.field__input:active + .field__range {
-  height: 1px;
-  margin-top: -1px;
-}
-
-.field:hover .field__range {
-  &::-webkit-slider-thumb {
-    width: 24px;
-    height: 24px;
-  }
-
-  &::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
   }
 }
 
@@ -250,15 +226,67 @@
   margin-top: 25px;
   background-color: v.$accent1;
   border-radius: 40px;
-
   font-weight: 900;
   font-size: 30px;
   line-height: 120%;
-
   color: v.$white;
 
-  &:hover {
-    background-color: v.$black;
+  @media screen and (max-width: v.$tabletWidth) {
+    margin-top: 0;
+  }
+
+  @media screen and (max-width: v.$mobileWidth) {
+    height: 60px;
+    font-size: 20px;
+    line-height: 100%;
+  }
+}
+
+// --------- special states ---------
+.field__input {
+  &:focus,
+  &:active {
+    background-color: v.$white;
+  }
+}
+
+.field__range {
+  @media screen and (min-width: v.$tabletWidth) {
+    cursor: pointer;
+  }
+}
+
+.field {
+  @media screen and (min-width: v.$tabletWidth) {
+    &:hover .field__range {
+      height: 1px;
+      margin-top: -1px;
+
+      &::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+      }
+    
+      &::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
+
+.field__input:active + .field__range {
+  @media screen and (min-width: v.$tabletWidth) {
+    height: 1px;
+    margin-top: -1px;
+  }
+}
+
+.lease__submit {
+  @media screen and (min-width: v.$tabletWidth) {
+    &:hover {
+      background-color: v.$black;
+    }
   }
 
   &:active {
@@ -279,6 +307,26 @@
   }
 }
 
-// .field {
-//   opacity: 0.25;
-// }
+.field--disabled {
+  opacity: 0.25;
+}
+
+.field--disabled.field:hover .field__range,
+.field--disabled .field__input:active + .field__range {
+  height: 2px;
+  margin-top: -2px;
+}
+
+.field--disabled.field:hover .field__range {
+  cursor: default;
+
+  &::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+  }
+}

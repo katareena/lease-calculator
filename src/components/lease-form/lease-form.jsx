@@ -127,7 +127,7 @@ const LeaseForm = () => {
 
           <input
             className='field__input'
-            type='string'
+            type='number'
             id='duration'
             name='duration'
             min='6'
