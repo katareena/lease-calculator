@@ -88,6 +88,7 @@ const LeaseForm = () => {
             onBlur={handleInputBlur}
           />
  
+          <label className='visually-hidden' htmlFor='costRange'>Выбрать стоимость автомобиля</label>
           <input
             className='lease__range'
             type='range'
@@ -105,7 +106,6 @@ const LeaseForm = () => {
 
         <div className='lease__box lease__aria-2'> 
           <label className='lease__label' htmlFor='initialPayment'>Первоначальный взнос</label>
-
           <input
             className='lease__input'
             type='text'
@@ -118,6 +118,7 @@ const LeaseForm = () => {
             onBlur={handleInputBlur}
           />
 
+          <label className='visually-hidden' htmlFor='initialPaymentRange'>Выбрать величину первоначального взноса</label>
           <input
             className='lease__range'
             type='range'
@@ -139,7 +140,6 @@ const LeaseForm = () => {
 
         <div className='lease__box lease__aria-3'>
           <label className='lease__label' htmlFor='duration'>Срок лизинга</label>
-
           <input
             className='lease__input'
             type='text'
@@ -152,6 +152,7 @@ const LeaseForm = () => {
             onBlur={handleInputBlur}
           />
  
+          <label className='visually-hidden' htmlFor='durationRange'>Выбрать длительность</label>
           <input
             className='lease__range'
             type='range'
