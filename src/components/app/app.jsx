@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import './app.scss';
-import LeaseForm from "../lease-form/lease-form";
+import LeaseForm from '../lease-form/lease-form';
 
 function App() {
   return (
-    <main className="main">
+    <main className='main'>
       <h1 className='visually-hidden'>Калькулятор расчета стоимости автомобиля в лизинг</h1>
       <LeaseForm />
     </main>
