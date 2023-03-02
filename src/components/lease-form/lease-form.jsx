@@ -42,8 +42,6 @@ const LeaseForm = () => {
     const {name, value, min, max} = range;
     const adaptValue = +value.replace(/\s/g,'');
 
-    // console.log(evt.target)
-
     if (evt.target.type !== 'range') {
       range = evt.target.parentNode.querySelector('input[type=range]');  
 
@@ -75,11 +73,11 @@ const LeaseForm = () => {
       <h2 className='lease__title'>Рассчитайте стоимость автомобиля в лизинг</h2>
 
       <form className='lease__form' onSubmit={handleSubmit}>
-        <div className='field lease__aria-1'>
-          <label className='field__label' htmlFor='cost'>Стоимость автомобиля</label>
+        <div className='lease__box lease__aria-1'>
+          <label className='lease__label' htmlFor='cost'>Стоимость автомобиля</label>
 
           <input
-            className='field__input'
+            className='lease__input'
             type='text'
             id='cost'
             name='cost'
@@ -91,7 +89,7 @@ const LeaseForm = () => {
           />
  
           <input
-            className='field__range'
+            className='lease__range'
             type='range'
             id='costRange'
             name='cost'
@@ -102,14 +100,14 @@ const LeaseForm = () => {
             style={{backgroundSize: `${(formData.cost - 1500000) * 100 / (10000000 - 1500000)}% 100%`}}
           />
 
-          <span className='field__marck'>&#8381;</span>
+          <span className='lease__marck'>&#8381;</span>
         </div>
 
-        <div className='field lease__aria-2'> 
-          <label className='field__label' htmlFor='initialPayment'>Первоначальный взнос</label>
+        <div className='lease__box lease__aria-2'> 
+          <label className='lease__label' htmlFor='initialPayment'>Первоначальный взнос</label>
 
           <input
-            className='field__input'
+            className='lease__input'
             type='text'
             id='initialPayment'
             name='initialPayment'
@@ -121,7 +119,7 @@ const LeaseForm = () => {
           />
 
           <input
-            className='field__range'
+            className='lease__range'
             type='range'
             id='initialPaymentRange'
             name='initialPayment'
@@ -133,17 +131,17 @@ const LeaseForm = () => {
           />
 
           <output
-            className='field__marck field__marck--changeable'
+            className='lease__marck lease__marck--changeable'
           >
             {getPercentages(formData.cost, formData.initialPayment)}
           </output>
         </div>
 
-        <div className='field lease__aria-3'>
-          <label className='field__label' htmlFor='duration'>Срок лизинга</label>
+        <div className='lease__box lease__aria-3'>
+          <label className='lease__label' htmlFor='duration'>Срок лизинга</label>
 
           <input
-            className='field__input'
+            className='lease__input'
             type='text'
             id='duration'
             name='duration'
@@ -155,7 +153,7 @@ const LeaseForm = () => {
           />
  
           <input
-            className='field__range'
+            className='lease__range'
             type='range'
             id='durationRange'
             name='duration'
@@ -165,33 +163,33 @@ const LeaseForm = () => {
             onChange={handleInputChange}
             style={{backgroundSize: `${(formData.duration - 6) * 100 / (120 - 6)}% 100%`}}
           />
-          <span className='field__marck'>мес.</span>
+          <span className='lease__marck'>мес.</span>
         </div>
 
-        <div className='field lease__aria-4'>
+        <div className='lease__box lease__aria-4'>
           <label
-            className='field__label'
+            className='lease__label'
             htmlFor='total'
           >
             Сумма договора лизинга
           </label>
           <output
-            className='field__value'
+            className='lease__value'
             id='total'         
           >
             {total > 0 ? toRub.format(total) : toRub.format(0)}
           </output>
         </div>
 
-        <div className='field lease__aria-5'>
+        <div className='lease__box lease__aria-5'>
           <label
-            className='field__label'
+            className='lease__label'
             htmlFor='monthlyPayment'
           >
             Ежемесячный платеж от
           </label>
           <output
-            className='field__value'
+            className='lease__value'
             id='monthlyPayment'
           >
             {monthlyPayment > 0 ? toRub.format(monthlyPayment) : toRub.format(0)}
