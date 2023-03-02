@@ -28,7 +28,11 @@ const LeaseForm = () => {
     const adaptValue = value.replace(/\s/g,'');
 
     if (evt.target.type !== 'range') {
-      target = evt.target.parentNode.querySelector('input[type=range]');     
+      target = evt.target.parentNode.querySelector('input[type=range]');  
+      
+      if (isNaN(Number(adaptValue))) {
+        return;
+      }
 
       if (Number(adaptValue) < Number(min)) {
         target.style.backgroundSize = '0% 100%';
@@ -50,6 +54,7 @@ const LeaseForm = () => {
 
   const monthlyPayment = Math.round((formData.cost - formData.initialPayment) * (0.05 * Math.pow((1 + 0.05), formData.duration) / (Math.pow((1 + 0.05), formData.duration) - 1)));
   const total = Math.round(formData.duration * monthlyPayment);
+              // pattern='[0-9\s]+$'
 
   return (
     <section className='lease'>
@@ -62,7 +67,6 @@ const LeaseForm = () => {
           <input
             className='field__input'
             type='text'
-            pattern='^[ 0-9]+$'
             id='cost'
             name='cost'
             min='1500000'
