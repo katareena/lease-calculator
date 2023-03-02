@@ -54,7 +54,6 @@ const LeaseForm = () => {
 
   const monthlyPayment = Math.round((formData.cost - formData.initialPayment) * (0.05 * Math.pow((1 + 0.05), formData.duration) / (Math.pow((1 + 0.05), formData.duration) - 1)));
   const total = Math.round(formData.duration * monthlyPayment);
-              // pattern='[0-9\s]+$'
 
   return (
     <section className='lease'>
@@ -131,13 +130,14 @@ const LeaseForm = () => {
 
           <input
             className='field__input'
-            type='number'
+            type='text'
             id='duration'
             name='duration'
             min='6'
             max='120'
-            value={(formData.duration)}
+            value={formData.duration}
             onChange={handleInputChange}
+            onBlur={handleInputBlur}
           />
  
           <input
