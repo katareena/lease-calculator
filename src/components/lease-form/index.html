@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <main>
+    <section class='lease'>
+      <h2 class='lease__title'>Рассчитайте стоимость автомобиля в лизинг</h2>
+
+      <form class='lease__form'>
+        <div class='field aria-1'>
+          <label class='field__label' for='cost'>Стоимость автомобиля</label>
+
+          <input class='field__input' type='text' id='cost' name='cost' data-min='1500000' data-max='10000000' />
+
+          <input class='field__range' type='range' id='costRange' name='cost' min='1500000' max='10000000' />
+
+          <span class='field__marck'>&#8381;</span>
+        </div>
+
+        <div class='field aria-2'>
+          <label class='field__label' for='initialPayment'>Первоначальный взнос</label>
+
+          <input class='field__input' type='text' id='initialPayment' name='initialPayment' data-min='150000'
+            data-max='6000000' />
+
+          <input class='field__range' type='range' id='initialPaymentRange' name='initialPayment' min='150000'
+            max='6000000' />
+
+          <output class='field__marck field__marck--changeable'>
+          </output>
+        </div>
+
+        <div class='field aria-3'>
+          <label class='field__label' for='duration'>Срок лизинга</label>
+
+          <input class='field__input' type='text' id='duration' name='duration' data-min='6' data-max='120' />
+
+          <input class='field__range' type='range' id='durationRange' name='duration' min='6' max='120' />
+          <span class='field__marck'>мес.</span>
+        </div>
+
+        <div class='field aria-4'>
+          <label class='field__label' for='total'>
+            Сумма договора лизинга
+          </label>
+          <output class='field__value' id='total'>
+          </output>
+        </div>
+
+        <div class='field aria-5'>
+          <label class='field__label' for='monthlyPayment'>
+            Ежемесячный платеж от
+          </label>
+          <output class='field__value' id='monthlyPayment'>
+          </output>
+        </div>
+
+        <button class='lease__submit aria-6' type='submit'>Оставить заявку</button>
+      </form>
+
+    </section>
+  </main>
+
+</body>
+
+</html>

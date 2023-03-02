@@ -1,66 +1,81 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import './lease-form.scss';
 import { toRub } from '../../constants';
+import { getMonthlyPayment, getTotal, getPercentages } from '../../utils/getAmounts';
 
 const LeaseForm = () => {
   const [formData, setFormData] = useState({
-    'cost': '3300000',
-    'initialPayment': '420000',
-    'duration': '60',
+    cost: 3300000,
+    initialPayment: 420000,
+    duration: 60,
+    total: 0,
+    monthlyPayment: 0,
   });
 
+  const monthlyPayment = getMonthlyPayment(formData.cost, formData.initialPayment, formData.duration);
+  const total = getTotal(formData.duration, monthlyPayment); 
+
+  useEffect(() => {
+    formData.monthlyPayment !== monthlyPayment
+      && setFormData({...formData, monthlyPayment: monthlyPayment});
+    formData.total !== total
+      && setFormData({...formData, total: total});
+  }, [monthlyPayment, total, formData]);
+
   function handleInputBlur(evt) {
-    const {name, value, min, max} = evt.target; 
-    const adaptValue = value.replace(/\s/g,'');    
-    
-    if (Number(adaptValue) < Number(min)) {
+    const {name, value} = evt.target; 
+    const adaptValue = +value.replace(/\s/g,'');
+    const min = +evt.target.dataset.min;
+    const max = +evt.target.dataset.max;
+
+    if (adaptValue < min) {
       setFormData({...formData, [name]: min})
     }
 
-    if (Number(adaptValue) > Number(max)) {
+    if (adaptValue > max) {
       setFormData({...formData, [name]: max})
     }
   }
 
   function handleInputChange(evt) {
-    let target = evt.target;
-    const {name, value, min, max} = target;
-    const adaptValue = value.replace(/\s/g,'');
+    let range = evt.target;
+    const {name, value, min, max} = range;
+    const adaptValue = +value.replace(/\s/g,'');
+
+    // console.log(evt.target)
 
     if (evt.target.type !== 'range') {
-      target = evt.target.parentNode.querySelector('input[type=range]');  
-      
-      if (isNaN(Number(adaptValue))) {
+      range = evt.target.parentNode.querySelector('input[type=range]');  
+
+      if (isNaN(adaptValue)) {
         return;
       }
 
-      if (Number(adaptValue) < Number(min)) {
-        target.style.backgroundSize = '0% 100%';
+      if (adaptValue < +min) {
+        range.style.backgroundSize = '0% 100%';
       }
   
-      if (Number(adaptValue) > Number(max)) {
-        target.style.backgroundSize = '100% 100%';
+      if (adaptValue > +max) {
+        range.style.backgroundSize = '100% 100%';
       }
-    } 
-    
-    target.style.backgroundSize = (adaptValue - min) * 100 / (max - min) + '% 100%'; 
+    } else {
+      range.style.backgroundSize = (adaptValue - min) * 100 / (max - min) + '% 100%';
+    }    
+     
     setFormData({...formData, [name]: adaptValue}); 
   }
 
-  function handlePercentage() {
-    const persent = Math.round(100/formData.cost*formData.initialPayment);
-    return persent > 100 ? '100%' : `${persent}%`;
-  }
-
-  const monthlyPayment = Math.round((formData.cost - formData.initialPayment) * (0.05 * Math.pow((1 + 0.05), formData.duration) / (Math.pow((1 + 0.05), formData.duration) - 1)));
-  const total = Math.round(formData.duration * monthlyPayment);
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    alert(JSON.stringify(formData));   
+  }  
 
   return (
     <section className='lease'>
       <h2 className='lease__title'>Рассчитайте стоимость автомобиля в лизинг</h2>
 
-      <form className='lease__form'>
-        <div className='field aria-1'>
+      <form className='lease__form' onSubmit={handleSubmit}>
+        <div className='field lease__aria-1'>
           <label className='field__label' htmlFor='cost'>Стоимость автомобиля</label>
 
           <input
@@ -68,8 +83,8 @@ const LeaseForm = () => {
             type='text'
             id='cost'
             name='cost'
-            min='1500000'
-            max='10000000'            
+            data-min='1500000'
+            data-max='10000000'            
             value={Number(formData.cost).toLocaleString('ru-RU')}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
@@ -90,7 +105,7 @@ const LeaseForm = () => {
           <span className='field__marck'>&#8381;</span>
         </div>
 
-        <div className='field aria-2'> 
+        <div className='field lease__aria-2'> 
           <label className='field__label' htmlFor='initialPayment'>Первоначальный взнос</label>
 
           <input
@@ -98,13 +113,13 @@ const LeaseForm = () => {
             type='text'
             id='initialPayment'
             name='initialPayment'
-            min='150000'
-            max='6000000'            
+            data-min='150000'
+            data-max='6000000'            
             value={Number(formData.initialPayment).toLocaleString('ru-RU')}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
           />
- 
+
           <input
             className='field__range'
             type='range'
@@ -119,13 +134,12 @@ const LeaseForm = () => {
 
           <output
             className='field__marck field__marck--changeable'
-            id='initialPaymentRange'
           >
-            {handlePercentage()}
+            {getPercentages(formData.cost, formData.initialPayment)}
           </output>
         </div>
 
-        <div className='field aria-3'>
+        <div className='field lease__aria-3'>
           <label className='field__label' htmlFor='duration'>Срок лизинга</label>
 
           <input
@@ -133,8 +147,8 @@ const LeaseForm = () => {
             type='text'
             id='duration'
             name='duration'
-            min='6'
-            max='120'
+            data-min='6'
+            data-max='120'
             value={formData.duration}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
@@ -154,21 +168,37 @@ const LeaseForm = () => {
           <span className='field__marck'>мес.</span>
         </div>
 
-        <div className='field aria-4'>
-          <p className='field__label'>Сумма договора лизинга</p>
-          <p className='field__value'>
+        <div className='field lease__aria-4'>
+          <label
+            className='field__label'
+            htmlFor='total'
+          >
+            Сумма договора лизинга
+          </label>
+          <output
+            className='field__value'
+            id='total'         
+          >
             {total > 0 ? toRub.format(total) : toRub.format(0)}
-          </p>
+          </output>
         </div>
 
-        <div className='field aria-5'>
-          <p className='field__label'>Ежемесячный платеж от</p>
-          <p className='field__value'>
+        <div className='field lease__aria-5'>
+          <label
+            className='field__label'
+            htmlFor='monthlyPayment'
+          >
+            Ежемесячный платеж от
+          </label>
+          <output
+            className='field__value'
+            id='monthlyPayment'
+          >
             {monthlyPayment > 0 ? toRub.format(monthlyPayment) : toRub.format(0)}
-          </p>
+          </output>
         </div>
 
-        <button className='lease__submit aria-6' type='submit'>Оставить заявку</button>
+        <button className='lease__submit lease__aria-6' type='submit'>Оставить заявку</button>
       </form>
 
     </section>
