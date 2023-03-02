@@ -11,7 +11,7 @@ const LeaseForm = () => {
 
   function handleInputBlur(evt) {
     const {name, value, min, max} = evt.target; 
-    const adaptValue = value.split(' ').join('');   
+    const adaptValue = value.replace(/\s/g,'');    
     
     if (Number(adaptValue) < Number(min)) {
       setFormData({...formData, [name]: min})
@@ -24,23 +24,23 @@ const LeaseForm = () => {
 
   function handleInputChange(evt) {
     let target = evt.target;
-    let {name, value, min, max} = target;
+    const {name, value, min, max} = target;
+    const adaptValue = value.replace(/\s/g,'');
 
     if (evt.target.type !== 'range') {
-      value = value.split(' ').join(''); 
       target = evt.target.parentNode.querySelector('input[type=range]');     
 
-      if (Number(value) < Number(min)) {
+      if (Number(adaptValue) < Number(min)) {
         target.style.backgroundSize = '0% 100%';
       }
   
-      if (Number(value) > Number(max)) {
+      if (Number(adaptValue) > Number(max)) {
         target.style.backgroundSize = '100% 100%';
       }
     } 
     
-    target.style.backgroundSize = (value - min) * 100 / (max - min) + '% 100%'; 
-    setFormData({...formData, [name]: value}); 
+    target.style.backgroundSize = (adaptValue - min) * 100 / (max - min) + '% 100%'; 
+    setFormData({...formData, [name]: adaptValue}); 
   }
 
   function handlePercentage() {
@@ -61,13 +61,13 @@ const LeaseForm = () => {
 
           <input
             className='field__input'
-            type='number'
+            type='text'
             pattern='^[ 0-9]+$'
             id='cost'
             name='cost'
             min='1500000'
             max='10000000'            
-            value={formData.cost}
+            value={Number(formData.cost).toLocaleString('ru-RU')}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
           />
@@ -92,12 +92,12 @@ const LeaseForm = () => {
 
           <input
             className='field__input'
-            type='number'
+            type='text'
             id='initialPayment'
             name='initialPayment'
             min='150000'
             max='6000000'            
-            value={formData.initialPayment}
+            value={Number(formData.initialPayment).toLocaleString('ru-RU')}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
           />
