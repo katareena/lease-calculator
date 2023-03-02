@@ -1,6 +1,7 @@
 ## Welcome to Lease Calculator App👋
 
 #### 🏠 [Homepage](https://github.com/katareena/lease-calculator)
+#### ✨ [Demo](https://lease-calculator.vercel.app/)
 
 ### Prerequisites
 
