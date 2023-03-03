@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './lease-form.scss';
+import cn from 'classnames';
 import { toRub } from '../../constants';
 import { getMonthlyPayment, getTotal, getPercentages } from '../../utils/getAmounts';
+import { ReactComponent as Spinner } from '../../assets/icons/spinner.svg';
 
 const LeaseForm = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +13,7 @@ const LeaseForm = () => {
     total: 0,
     monthlyPayment: 0,
   });
+  const [isSending, setIsSending] = useState(false);
 
   const monthlyPayment = getMonthlyPayment(formData.cost, formData.initialPayment, formData.duration);
   const total = getTotal(formData.duration, monthlyPayment); 
@@ -65,14 +68,26 @@ const LeaseForm = () => {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    alert(JSON.stringify(formData));   
+    setIsSending(true);
+    setTimeout(() => {
+      setIsSending(false);
+      alert(JSON.stringify(formData));
+      setFormData({
+        cost: 1500000,
+        initialPayment: 150000,
+        duration: 6,
+      })
+    }, 1500);       
   }  
 
   return (
     <section className='lease'>
       <h2 className='lease__title'>Рассчитайте стоимость автомобиля в лизинг</h2>
 
-      <form className='lease__form' onSubmit={handleSubmit}>
+      <form
+        className={cn('lease__form', {'lease__form--disabled': isSending})}
+        onSubmit={handleSubmit}
+      >
         <div className='lease__box lease__aria-1'>
           <label className='lease__label' htmlFor='cost'>Стоимость автомобиля</label>
 
@@ -86,6 +101,7 @@ const LeaseForm = () => {
             value={Number(formData.cost).toLocaleString('ru-RU')}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
+            disabled={isSending}
           />
  
           <label className='visually-hidden' htmlFor='costRange'>Выбрать стоимость автомобиля</label>
@@ -99,6 +115,7 @@ const LeaseForm = () => {
             value={formData.cost}
             onChange={handleInputChange}
             style={{backgroundSize: `${(formData.cost - 1500000) * 100 / (10000000 - 1500000)}% 100%`}}
+            disabled={isSending}
           />
 
           <span className='lease__marck'>&#8381;</span>
@@ -116,6 +133,7 @@ const LeaseForm = () => {
             value={Number(formData.initialPayment).toLocaleString('ru-RU')}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
+            disabled={isSending}
           />
 
           <label className='visually-hidden' htmlFor='initialPaymentRange'>Выбрать величину первоначального взноса</label>
@@ -129,6 +147,7 @@ const LeaseForm = () => {
             value={formData.initialPayment}
             onChange={handleInputChange}
             style={{backgroundSize: `${(formData.initialPayment - 150000) * 100 / (6000000 - 150000)}% 100%`}}
+            disabled={isSending}
           />
 
           <output
@@ -150,6 +169,7 @@ const LeaseForm = () => {
             value={formData.duration}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
+            disabled={isSending}
           />
  
           <label className='visually-hidden' htmlFor='durationRange'>Выбрать длительность</label>
@@ -163,6 +183,7 @@ const LeaseForm = () => {
             value={formData.duration}
             onChange={handleInputChange}
             style={{backgroundSize: `${(formData.duration - 6) * 100 / (120 - 6)}% 100%`}}
+            disabled={isSending}
           />
           <span className='lease__marck'>мес.</span>
         </div>
@@ -197,7 +218,13 @@ const LeaseForm = () => {
           </output>
         </div>
 
-        <button className='lease__submit lease__aria-6' type='submit'>Оставить заявку</button>
+        <button
+          className='lease__submit lease__aria-6'
+          type='submit'
+          disabled={isSending}
+        >
+          {isSending ? <Spinner /> : 'Оставить заявку'}          
+        </button>
       </form>
 
     </section>

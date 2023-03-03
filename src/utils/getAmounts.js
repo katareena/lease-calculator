@@ -7,6 +7,8 @@ export const getTotal = (duration, monthlyPayment) => {
 };
 
 export const getPercentages = (cost, initialPayment) => {
+  if (cost === 0 || initialPayment === 0) return '0%';
+
   const persent =  Math.round(100/cost * initialPayment);
   return persent > 100 ? '100%' : `${persent}%`;
 }
